@@ -1,0 +1,2 @@
+boot/kernel_debug.img /boot
+debug/modules/* /lib/modules

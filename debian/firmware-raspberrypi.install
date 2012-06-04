@@ -1,0 +1,6 @@
+boot/arm128_start.elf /boot
+boot/arm192_start.elf /boot
+boot/arm224_start.elf /boot
+boot/bootcode.bin /boot
+boot/loader.bin /boot
+boot/start.elf /boot

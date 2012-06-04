@@ -1,0 +1,3 @@
+boot/kernel.img /boot
+boot/kernel_emergency.img /boot
+modules/* /lib/modules

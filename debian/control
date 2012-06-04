@@ -1,0 +1,54 @@
+Source: raspberrypi-support
+Section: misc
+Priority: optional
+Maintainer: Eugenio Paolantonio (g7) <me@medesimo.eu>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.3
+Homepage: http://raspberrypi.org
+Vcs-Git: git://github.com/semplice/raspberrypi-support.git
+Vcs-Browser: https://github.com/semplice/raspberrypi-support/tree/debian
+
+Package: firmware-raspberrypi
+Architecture: armel
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Raspberry Pi support files -- firmwares
+ This package contains the firmwares required to boot the
+ Raspberry Pi(TM).
+ .
+ It ships the files to /boot, thus requiring the first
+ partition of the SD Card mounted to that directory.
+
+Package: linux-image-raspberrypi
+Architecture: armel
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Linux for the Raspberry Pi
+ This package contains the Linux kernel and its relative modules
+ for the Raspberry Pi(TM).
+ .
+ It ships some of the files to /boot, thus requiring the first
+ partition of the SD Card mounted to that directory.
+
+Package: linux-image-raspberrypi-dbg
+Architecture: armel
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: linux-image-raspberrypi
+Description: Debug Linux for the Raspberry Pi
+ This package contains the Debug Linux kernel and its relative modules
+ for the Raspberry Pi(TM).
+ .
+ It ships some of the files to /boot, thus requiring the first
+ partition of the SD Card mounted to that directory.
+
+Package: omxil-doc
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+ This package contains the Openmax IL documentation, in HTML.
+ .
+ See /usr/share/doc/omxil-doc/ilcomponents/index.html for details.
+
+Package: videocore-libraries
+Architecture: armel
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Raspberry Pi support files -- VideoCoreIV libraries
+ This package contains the userspace libraries needed
+ to get the VideoCoreIV working.
