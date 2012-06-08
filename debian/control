@@ -9,6 +9,7 @@ Vcs-Git: git://github.com/semplice/raspberrypi-support.git
 Vcs-Browser: https://github.com/semplice/raspberrypi-support/tree/debian
 
 Package: firmware-raspberrypi
+Section: non-free/kernel
 Architecture: armel
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Raspberry Pi support files -- firmwares
@@ -19,6 +20,7 @@ Description: Raspberry Pi support files -- firmwares
  partition of the SD Card mounted to that directory.
 
 Package: linux-image-raspberrypi
+Section: kernel
 Architecture: armel
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Linux for the Raspberry Pi
@@ -29,6 +31,7 @@ Description: Linux for the Raspberry Pi
  partition of the SD Card mounted to that directory.
 
 Package: linux-image-raspberrypi-dbg
+Section: kernel
 Architecture: armel
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Conflicts: linux-image-raspberrypi
@@ -39,14 +42,17 @@ Description: Debug Linux for the Raspberry Pi
  It ships some of the files to /boot, thus requiring the first
  partition of the SD Card mounted to that directory.
 
-Package: omxil-doc
+Package: omxil-broadcom-doc
+Section: non-free/doc
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Broadcom Openmax IL implementation documentation
  This package contains the Openmax IL documentation, in HTML.
  .
  See /usr/share/doc/omxil-doc/ilcomponents/index.html for details.
 
 Package: videocore-libraries
+Section: non-free/libs
 Architecture: armel
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Raspberry Pi support files -- VideoCoreIV libraries

@@ -20,6 +20,6 @@ export DH_OPTIONS
 %:
 	dh $@ 
 
-override_dh_auto_install:
-	dh_auto_install
-	mv debian/linux-image-raspberrypi-dbg/boot/kernel_debug.img debian/linux-image-raspberrypi-dbg/boot/kernel.img
+ovverride_dh_install:
+	dh_install
+	[ -f "$(CURDIR)/debian/linux-image-raspberrypi-dbg/boot/kernel_debug.img" ] && mv $(CURDIR)/debian/linux-image-raspberrypi-dbg/boot/kernel_debug.img $(CURDIR)/debian/linux-image-raspberrypi-dbg/boot/kernel.img
