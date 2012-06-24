@@ -22,4 +22,11 @@ export DH_OPTIONS
 
 ovverride_dh_install:
 	dh_install
-	[ -f "$(CURDIR)/debian/linux-image-raspberrypi-dbg/boot/kernel_debug.img" ] && mv $(CURDIR)/debian/linux-image-raspberrypi-dbg/boot/kernel_debug.img $(CURDIR)/debian/linux-image-raspberrypi-dbg/boot/kernel.img
+	[ -f "$(CURDIR)/debian/linux-image-raspberrypi-cutdown/boot/kernel_cutdown.img" ] && mv $(CURDIR)/debian/linux-image-raspberrypi-cutdown/boot/kernel_cutdown.img $(CURDIR)/debian/linux-image-raspberrypi-cutdown/boot/kernel.img
+
+override_dh_clean:
+	dh_clean
+	if [ -d "$(CURDIR)/debian/omxil-broadcom-doc" ]; then rm -rf $(CURDIR)/debian/omxil-broadcom-doc; fi
+	if [ -f "$(CURDIR)/debian/omxil-broadcom-doc.debhelper.log" ]; then rm $(CURDIR)/debian/omxil-broadcom-doc.debhelper.log; fi
+	if [ -f "$(CURDIR)/debian/omxil-broadcom-doc.substvars" ]; then rm $(CURDIR)/debian/omxil-broadcom-doc.substvars; fi
+	if [ -f "$(CURDIR)/debian/files" ]; then rm $(CURDIR)/debian/files; fi

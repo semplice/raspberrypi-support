@@ -3,7 +3,7 @@ Section: misc
 Priority: optional
 Maintainer: Eugenio Paolantonio (g7) <me@medesimo.eu>
 Build-Depends: debhelper (>= 8.0.0)
-Standards-Version: 3.9.3
+Standards-Version: 3.9.3.1
 Homepage: http://raspberrypi.org
 Vcs-Git: git://github.com/semplice/raspberrypi-support.git
 Vcs-Browser: https://github.com/semplice/raspberrypi-support/tree/debian
@@ -30,17 +30,27 @@ Description: Linux for the Raspberry Pi
  It ships some of the files to /boot, thus requiring the first
  partition of the SD Card mounted to that directory.
 
-Package: linux-image-raspberrypi-dbg
+Package: linux-image-raspberrypi-cutdown
 Section: kernel
 Architecture: armel
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Conflicts: linux-image-raspberrypi
-Description: Debug Linux for the Raspberry Pi
- This package contains the Debug Linux kernel and its relative modules
+Description: Cutdown Linux for the Raspberry Pi
+ This package contains the Cutdown Linux kernel and its relative modules
  for the Raspberry Pi(TM).
  .
  It ships some of the files to /boot, thus requiring the first
  partition of the SD Card mounted to that directory.
+
+Package: linux-image-raspberrypi-dbg
+Section: kernel
+Architecture: armel
+Depends: ${shlibs:Depends}, ${misc:Depends}, linux-image-raspberrypi-cutdown
+Conflicts: linux-image-raspberrypi
+Description: Dummy transitional package to linux-image-raspberrypi-cutdown
+ This package is a dummy transitional package to the linux-image-raspberrypi-cutdown
+ package.
+ .
+ Feel free to remove it.
 
 Package: omxil-broadcom-doc
 Section: non-free/doc

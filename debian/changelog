@@ -1,3 +1,26 @@
+raspberrypi-support (3.1.9+git2012.06.22-1) pulse; urgency=low
+
+  [ popcornmix ]
+  * Rebuild with updated (more debug) kernel. Firmware has larger framebuffer alignment support, hdmi_safe and kernel_old flags. Added hello_dispmanx test code and missing font file
+  * sdhci-bcm2708 performance, compatibility and reliability improvements - thanks lb Note init_emmc_clock is now 50000000. You must update kernel.img and start.elf together. If you want to use an old kernel with this start.elf you will need init_emmc_clock=80000000. If you want to use this kernel with an old start.elf you will need init_emmc_clock=50000000.
+  * Added more LED flashing to bootcode.bin and loader.bin. start.elf now supports setting of gpio drive strength
+  * Rebuilt kernel with sdhci-bcm2708: raise DMA sync timeout
+  * Fix divide by zero introduced last check in. Added new kernel options for iptables, device mapper, PPP_MPPE.
+  * Add small boot_delay which helps boot hangs
+  * Added hfs and hfsplus modules
+  * Fixes for ALSA hangs
+  * Fix for bootcode.bin pullupson sdcard Add hdmi_force_edid_audio to report all audio formats supported Move cutdown kernel to 3.1.9-cutdown+ so kernels can be switched more easily Add NFSD and dvb modules Fix memory leak in USB driver
+
+  [ Eugenio Paolantonio ]
+  * debian/control:
+    - bumped to standards-version: 3.9.3.1.
+    - added linux-image-raspberrypi-cutdown
+    - made linux-image-raspberrypi-dbg a transitional package to linux-image-raspberrypi-cutdown.
+  * debian/rules:
+    - properly clean up omxil-broadcom-doc.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sun, 24 Jun 2012 17:58:54 +0200
+
 raspberrypi-support (3.1.9+git2012.06.05-1) pulse; urgency=low
 
   [ popcornmix ]
