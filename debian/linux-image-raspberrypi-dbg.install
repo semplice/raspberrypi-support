@@ -1,3 +1,0 @@
-boot/kernel_debug.img /boot
-boot/kernel_emergency.img /boot
-debug/modules/* /lib/modules
