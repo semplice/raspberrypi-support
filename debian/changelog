@@ -1,3 +1,40 @@
+raspberrypi-support (3.1.9+git2012.07.27-1) pulse; urgency=low
+
+  [ popcornmix ]
+  * Attempted fix for analogue noise at start and stop of playback
+  * Fixed issue with some keyboards giving too much data resulting in overrun of the input buffer and memory corruption causing an OOPS. We should be checking for the fact that we might get more data than we want.
+  * Fixes to analogue audio. Fix hang with openmax. Fix lost samples at front of buffer
+  * Rebuild of kernel and GPU firmware with: 802.1q VLAN module, interrupt support in gpio driver, lower powered poweroff state, and fixed 8bpp console colours
+  * Rebuilt kernel with fix for parts of framebuffer not updating
+  * Rebuild with: Add mechanism to reduce the number of SOF interrupts in dwc_otg USB driver. Enable through /proc/dwc_sof/SOF_reduction Also add Module.symvers and git hash the kernel source was built against
+  * Updating dwc_otg driver to fix issue releasing pcm stream Backport of Chris Boot's i2c and spi drivers. Firmware has hdmi_ignore_cec config option added. Determine board revision from OTP in preference to GPIO version Fix for hdmi_ignore_edid not allowing unsupported modes. Tidy up of /opt/vc files and hello_pi to build with raspbian
+  * Rebuild with: Fix for compressed kernel booting. Fix to avoid discarding swapfile which can be slow Added sdtv_disable_colourburst. Add GPIO1 pulldown jumper mod to allow safe mode booting
+  * Change licence to three clause BSD
+  * Tweak working of licence headers. Kernel built with added SCSI tape module
+  * Add workaround for hand when quitting X. Clip overscan values to zero. Add ATAG_INITRD2.
+  * Add execute permission to rebuild.sh
+  * Fix problem with hdmi_safe and safe_mode not working. Add 8MB space with initramfs and followkernel. Fix some missing header file licences.
+  * Better fix for quitting X hang. Interrupted mailbox reads are not something we can reliably recover from, so down_interruptable is not a safe call.
+  * Add sync_after_dma module parameter to kernel. Tweak for hdmi mode selection when no detailed timing. Add hdmi_ignore_hotplug, disable_l2cache_witealloc  and arm_control configs. Add mailbox property channel, see github issue #47
+  * Fix for too much power management giving slow boots in last commit. Fix for crackles in HDMI audio. Fix for display blanking caused by optimised memset in conjunction with 32bpp framebuffer. Support default cmdline.txt when missing.
+  * Add SPI_SPI_DEV module Fix setting membase from command line with vcdbg Avoid blocking when submitting audio data when full and not started. Increase size of audio output buffer to handle buffer size increasing when resampling low frequencies. Avoid losing start of HDMI output. Allow sdtv to be switched on from tvservice Some mailbox property fixes. Fix spelling of disable_l2cache_writealloc
+  * Rebuild with newer toolchain (gcc-4.7.1)
+  * Rebuild with various requested extra config options
+  * Revert unwanted change to licence header
+  * Trim the firmware builds. Add a smaller arm240_start.elf
+  * Rebuilt with possible fix for missing USB packets
+  * Revert "Rebuilt with possible fix for missing USB packets"
+  * Fix for 'Failed to add service' Switch to new libCEC compatible CEC service. Note: this breaks compatibility with existing CEC service
+  * Fix for 'Failed to add service' try two
+
+  [ Eugenio Paolantonio (g7) ]
+  * debian/control:
+     - removed linux-image-raspberrypi-dbg
+     - Made linux-image-raspberrypi-cutdown conflict with linux-image-raspberrypi.
+
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Wed, 01 Aug 2012 00:22:07 +0200
+
 raspberrypi-support (3.1.9+git2012.06.22-1) pulse; urgency=low
 
   [ popcornmix ]
