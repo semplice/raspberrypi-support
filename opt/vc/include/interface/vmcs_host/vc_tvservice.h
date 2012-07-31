@@ -1,25 +1,35 @@
 /*
-* Copyright (c) 2012 Broadcom Europe Ltd
-*
-* Licensed to the Apache Software Foundation (ASF) under one or more
-* contributor license agreements.  See the NOTICE file distributed with
-* this work for additional information regarding copyright ownership.
-* The ASF licenses this file to You under the Apache License, Version 2.0
-* (the "License"); you may not use this file except in compliance with
-* the License.  You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-* TV service host API,
-* See vc_hdmi.h for HDMI related constants
-* See vc_sdtv.h for SDTV related constants
+Copyright (c) 2012, Broadcom Europe Ltd
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of the copyright holder nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
+/*
+ * TV service host API,
+ * See vc_hdmi.h for HDMI related constants
+ * See vc_sdtv.h for SDTV related constants
+ */
 
 #ifndef _VC_TVSERVICE_H_
 #define _VC_TVSERVICE_H_
@@ -29,9 +39,7 @@
 #include "interface/vchi/vchi.h"
 #include "interface/vmcs_host/vc_tvservice_defs.h"
 #include "interface/vmcs_host/vc_hdmi.h"
-#ifndef PLATFORM_NO_VEC
 #include "interface/vmcs_host/vc_sdtv.h"
-#endif
 
 /**
  * \file
@@ -197,7 +205,6 @@ VCHPRE_ int VCHPOST_ vc_tv_hdmi_power_on_best_3d(uint32_t width, uint32_t height
  */
 VCHPRE_ int VCHPOST_ vc_tv_hdmi_power_on_explicit(HDMI_MODE_T mode, HDMI_RES_GROUP_T group, uint32_t code);
 
-#ifndef PLATFORM_NO_VEC
 /**
  * <DFN>vc_tv_sdtv_power_on</DFN> is used to turn on analogue TV. HDMI will
  * automatically be powered off if on.
@@ -210,7 +217,6 @@ VCHPRE_ int VCHPOST_ vc_tv_hdmi_power_on_explicit(HDMI_MODE_T mode, HDMI_RES_GRO
  *
  */
 VCHPRE_ int VCHPOST_ vc_tv_sdtv_power_on(SDTV_MODE_T mode, SDTV_OPTIONS_T *options);
-#endif
 
 /**
  * <DFN>vc_tv_power_off</DFN> is used to turn off either analogue or HDMI output.
@@ -443,4 +449,12 @@ VCHPRE_ int VCHPOST_ vc_tv_hdmi_ddc_read(uint32_t offset, uint32_t length, uint8
  * @param attached  non-zero if the TV is attached or zero for unplugged.
  */
 VCHPRE_ int VCHPOST_ vc_tv_hdmi_set_attached(uint32_t attached);
+
+/**
+ * Converts the notification reason to a string.
+ *
+ * @param reason is the notification reason
+ * @return  The notification reason as a string.
+ */
+VCHPRE_ const char* vc_tv_notifcation_name(VC_HDMI_NOTIFY_T reason);
 #endif

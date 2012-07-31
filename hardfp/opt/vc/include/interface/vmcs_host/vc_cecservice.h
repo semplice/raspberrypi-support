@@ -1,24 +1,34 @@
 /*
-* Copyright (c) 2012 Broadcom Europe Ltd
-*
-* Licensed to the Apache Software Foundation (ASF) under one or more
-* contributor license agreements.  See the NOTICE file distributed with
-* this work for additional information regarding copyright ownership.
-* The ASF licenses this file to You under the Apache License, Version 2.0
-* (the "License"); you may not use this file except in compliance with
-* the License.  You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-* CEC service host API, 
-* See vc_cec.h and vc_cecservice_defs.h for related constants
+Copyright (c) 2012, Broadcom Europe Ltd
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of the copyright holder nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
+/*
+ * CEC service host API, 
+ * See vc_cec.h and vc_cecservice_defs.h for related constants
+ */
 
 #ifndef _VC_CECSERVICE_H_
 #define _VC_CECSERVICE_H_
@@ -34,6 +44,9 @@
  * This API defines the controls for CEC. HDMI must be powered on before
  * CEC is available (subject to CEC support in TV). 
  *
+ * In general, a zero return value indicates success; a negative return
+ * value indicates error in VCHI layer; a positive return value indicates
+ * alternative return value from the server
  */
 
 /**
@@ -289,7 +302,8 @@ VCHPRE_ int VCHPOST_ vc_cec_get_vendor_id(const CEC_AllDevices_T logical_address
  *
  * @param logical address
  *
- * @return the default device type
+ * @return the default device type, if there is any error, the return device
+ *         type will be CEC_DeviceType_Invalid
  *
  ************************************************************/
 VCHPRE_ CEC_DEVICE_TYPE_T VCHPOST_ vc_cec_device_type(const CEC_AllDevices_T logical_address);
@@ -310,6 +324,74 @@ VCHPRE_ int VCHPOST_ vc_cec_send_message2(const VC_CEC_MESSAGE_T *message);
 VCHPRE_ int VCHPOST_ vc_cec_param2message( const uint32_t reason, const uint32_t param1, 
                                            const uint32_t param2, const uint32_t param3,
                                            const uint32_t param4, VC_CEC_MESSAGE_T *message);
+
+//Extra API if CEC is running in passive mode
+//If CEC is not in passive mode the following 3 functions always
+//return failure
+/**
+ * <DFN> vc_cec_poll_address </DFN> sets and polls a particular address to find out
+ * its availability in the CEC network. Only available when CEC is running in passive
+ * mode. The host can only call this function during logical address allocation stage.
+ *
+ * @param logical address to try
+ *
+ * @return 0 if poll is successful (address is occupied)
+ *        >0 if poll is unsuccessful (Error code is in VC_CEC_ERROR_T in vc_cec.h)
+ *        <0 VCHI errors
+ */
+VCHPRE_ int VCHPOST_ vc_cec_poll_address(const CEC_AllDevices_T logical_address);
+
+/**
+ * <DFN> vc_cec_set_logical_address </DFN> sets the logical address, device type
+ * and vendor ID to be in use. Only available when CEC is running in passive
+ * mode. It is the responsibility of the host to make sure the logical address
+ * is actually free to be used. Physical address will be what is read from EDID.
+ *
+ * @param logical address
+ *
+ * @param device type
+ *
+ * @param vendor ID
+ *
+ * @return 0 if successful, non-zero otherwise
+ */
+VCHPRE_ int VCHPOST_ vc_cec_set_logical_address(const CEC_AllDevices_T logical_address,
+                                                const CEC_DEVICE_TYPE_T device_type,
+                                                const uint32_t vendor_id);
+
+/**
+ * <DFN> vc_cec_add_device </DFN> adds a new device to topology. 
+ * Only available when CEC is running in passive mode. Device will be
+ * automatically removed from topology if a failed xmit is detected.
+ * If last_device is true, it will trigger a topology computation
+ * (and may trigger a topology callback).
+ *
+ * @param logical address
+ * 
+ * @param physical address
+ *
+ * @param device type
+ *
+ * @param true if this is the last device, false otherwise
+ *
+ * @return 0 if successful, non-zero otherwise
+ */
+VCHPRE_ int VCHPOST_ vc_cec_add_device(const CEC_AllDevices_T logical_address,
+                                       const uint16_t physical_address,
+                                       const CEC_DEVICE_TYPE_T device_type,
+                                       bool_t last_device);
+
+/**
+ * <DFN> vc_cec_set_passive </DFN> enables and disables passive mode.
+ * Call this function first (with VC_TRUE as the argument) to enable
+ * passive mode before calling any of the above passive API functions
+ *
+ * @param TRUE to enable passive mode, FALSE to disable
+ * 
+ * @return 0 if successful, non-zero otherwise
+ */
+VCHPRE_ int VCHPOST_ vc_cec_set_passive(bool_t enabled);
+
 
 //API for some common CEC messages
 /** 
