@@ -1,3 +1,9 @@
+raspberrypi-support (3.2.27+git2012.09.05-2) pulse; urgency=low
+
+  * Rebuild.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Fri, 07 Sep 2012 16:12:36 +0200
+
 raspberrypi-support (3.2.27+git2012.09.05-1) pulse; urgency=low
 
   [ popcornmix ]
