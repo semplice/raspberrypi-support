@@ -1,3 +1,3 @@
 boot/kernel_cutdown.img /boot
 boot/kernel_emergency.img /boot
-modules/3.1.9-cutdown+ /lib/modules
+modules/3.2.27-cutdown+ /lib/modules

@@ -1,3 +1,32 @@
+raspberrypi-support (3.2.27+git2012.09.05-1) pulse; urgency=low
+
+  [ popcornmix ]
+  * Rebuild with bootc patches. Add lb's patches: sdhci-bcm2708: use extension FIFO to buffer DMA transfers. sdhci-bcm2708: use multiblock-type transfers for single blocks. Add module parameter for missing_status quirk: sdhci-bcm2708.missing_status. Firmware: Add 7 flash pattern for missing kernel.img. Allow PWM PLL to be repurposed for H264/ISP/V3D.
+  * Retain CEC logical address after hdmi mode change. Avoid killing composite when attempting to start CEC or HDMI audio
+  * Fix for audio hdmi passthrough, broken in last commit
+  * Fix for ALSA ten second timeout on exit. Fix for volume/mute issues Add fuzzy matching on hdmi modes with edid_format_smart_match
+  * Preparation for additional codecs
+  * Minor fix for matching closest framerates when edid_format_smart_match is enabled
+  * Rebuild with updated 2.94a USB driver. Add CONFIG_CRYPTO_XTS module
+  * Some updates to overclock settings. avoid_pwm_pll + H264 fixed. Add hdmi_ignore_cec_init.
+  * Fix for GPU overclock being lost
+  * Rebase to kernel 3.2.27
+  * Merged in microframe scheduler, currently disabled. Enable with dwc_otg.microframe_schedule=1
+  * Fix for broken GPIO with 3.2 kernel
+  *  Revert Disable IRQs in dwc_otg_hcd_qh_free because DWC_DMA_FREE should be called with enabled IRQs. amba-pl011: Don't send a character during startup Another fix for 10 second hang on closing sound driver
+  * Update to dwc_otg 3.00. Seems to be a very minor update (mostly adding support for a newer version of hardware)
+  * Rebuild with 1-wire support. More efficient PWM audio on GPU
+  * Turn on microframe_schedule by default. Can still be disabled on command line. Switch off tracing options in kernel. Costs 20% in iperf speed, and 10% in xbmc framerate
+  * Add low-latency mode to sdcard driver. Enable with sdhci-bcm2708.enable_llm=1. Thanks ddv2005. Add overscan_scale config.txt option which scales all dispmanx layer. Don't lock SMPS settings. Make edid_fuzzy_match enabled by default.
+  * Rebuild with latest linaro gcc compiler. Add config options to allow iotop to run. Fix for vmalloc failure with modprobe and cutdown kernel. Add VG tiger hello_pi example
+  * Enable low latency mode by default in sdcard driver. Can be disabled with sdhci-bcm2708.enable_llm=0
+  * Add FIQ patch to dwc_otg driver. Enable with dwc_otg.fiq_fix_enable=1. Should give about 10% more ARM performance. Thanks to Gordon and Costas
+  * Add non-mainline source for rtl8188cu wireless driver as this is widely used. Disabled older rtlwifi driver
+  * Add verious user config requests. CONFIG_DEVTMPFS_MOUNT, CONFIG_NFS_V4_1=y CONFIG_NFSD_V3_ACL=y CONFIG_NFSD_V4=y, drbd and IPSEC modules
+  * Firmware update. Expose more overclocking options through mailbox channel. Restrict H264/ISP/V3D to integer divisors of PLL. Choose highest PLL below 2.4G. Disable overclock above 85'C. Try to fix 14:9/16:9 sdtv aspect ratio. Allow bcm_host_init to be called more than once.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Fri, 07 Sep 2012 14:25:33 +0200
+
 raspberrypi-support (3.1.9+git2012.07.27-1) pulse; urgency=low
 
   [ popcornmix ]
