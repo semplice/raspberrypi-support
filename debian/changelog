@@ -1,3 +1,57 @@
+raspberrypi-support (3.2.27+git2012.11.26-1) pulse; urgency=low
+
+  [ popcornmix ]
+  * Add support for OMX_COLOR_Format32bitARGB8888  in image_decode, image_resize, image_encode. Fix GET_DMA_CHANNELS mailbox message. Add measure_clock gencmd
+  * Added cpufreq driver. Added measure_temp vcgencmd. Fix bug when moving manditory CEA to DMT modes. Some device tree updates
+  * Add measure_volts vcgencmd. Restrict core voltage to 1.35 without force_turbo. Exclude v3d/h264/isp from turbo. Use powerman for voltage (and so get ate_offset).
+  * Enable fiq fix by default. Add NAK holdoff scheme. Enabled by default, disable with dwc_otg.nak_holdoff_enable=0. Thanks gsh. Added hwmon/thermal driver for reporting core temperature. Thanks Dorian. Support command line in devtree.
+  * Fix possible deadlock when changing frequency
+  * Add config options for thermal sensor, L2TP, RT2800USB_UNKNOWN, and various I2C and SPI RTCs. Tidy of thermal driver.
+  * Add back in missing files
+  * Add boot_delay_ms config option. Reinstate boot_delay=1. Program NULL serials. Allow temp_limit to be set. Remove logging from 240M build
+  * Reduce PWM fifo threshold to avoid losing 0.4% of samples. Allocate more DMA channels to ARM Add fake_vsync_isr config option to trigger SMI interrupt on vsync
+  * Remove some unnecessary dmesg output. Support safe mode on rev2 boards. Allow longer codec licence strings (8 licences).
+  * Switch to powersave governor. We'll enable ondemand in the distribution
+  * Gain an extra bit on PWM audio. Should improve quality a little.
+  * Fix incorrect vector instruction in downmixing code
+  * enable multiple ALSA channels
+  * Fix Kernel OOPS in SDHCI on boot with the llm patch. Thanks ddv2005
+  * Added initial_turbo config parameter for forcing turbo from boot. Added OMX_IndexConfigBrcmAudioDownmixCoefficients for setting custom downmix coefficients.
+  * Use system timer for udelay, so unaffected by cpufreq. Add simpler bob deinterlace for 1080i streams. Add saturation to audio downmixer
+  * Move __delay function into assembly to get accurate BogoMips
+  * Move to newer version of GPU source tree (LKG56). New vdec3 video decoder. New hello_encode demo app. loader.bin no longer required. Note: need to update kernel, start.elf and opt/vc/lib together
+  * Fix 240M memory split build
+  * Remove BUG() call from vchiq that is trigger when alsa is killed
+  * Revert "Remove BUG() call from vchiq that is trigger when alsa is killed"
+    This reverts commit db62088e8248ee4f080cf0ff84242970a1327587.
+  * Revert "Fix 240M memory split build"
+    This reverts commit 5a036c9172c50560f47af8c9ea4ab1f7853cacb5.
+  * Revert "Move to newer version of GPU source tree (LKG56)."
+    This reverts commit 1a7fbe8113ffadfde24863f6fcb50ff8be9265c6.
+  * Add memory splits for 512M board
+  * Update to new firmware. Includes vdec3 but without vchiq. Updated code at LKG45. Adds hello_encode demo.
+  * Increase emmc clock to 100MHz to help with sdcard corruption when overclocking
+  * Increase limit on arm_freq. Add 8-flash pattern for abort. Support eglGetProcAddress for vgCreateEGLImageTargetKHR. Allow overriding of scaling kernel.
+  * Remove plethora of start.elf files. Now use start.elf and fixup.dat. Add config.txt paramater gpu_mem to select GPU mem and ARM gets the remainder. E.g. gpu_mem=64 Should handle 256M and 512M parts. The start_cd.elf and fixup_cd.dat will be used when gpu_mem=16. loader.bin no longer needed. Switch to compressed kernel images.
+  * Add gpu_mem_256 and gpu_mem_512 config options to bootcode.bin
+  * Add vcgencmd get_config for extracting config.txt settings
+  * Fix for parsing of broken EDIDs. Add dispmanx_offline config parameter to allow compositing to offline buffer when displayed elements are too complex for realtime display
+  * Update to LKG56 for dispmanx, hvs, dispserv, scalarlib. Also fix some hard coded sizes on elements and increase size of release queue. Allow display_rortate to set hflip and vflip flags. Fix for SET_POWER_STATE mailbox message
+  * Avoid allocating dispmanx offscreen buffer when not requested. It was consuming significant GPU memory. Add patch from chinasaur: Remove vgfont limitation on characters drawable per line
+  * Use a dummy edid when hdmi_ignore_edid is true and edid is invalid
+  * Disable dispmanx auto-offlining when not required
+  * Allow packed images to be created with vc_dispmanx_resource_create
+  * Make sure we wait for the reset to finish in usb driver. SPI: respect per-transfer SPI clock speed_hz value. Add missing pctv452e DVB module
+  * Potential fix for interlaced video stuttering. Support for packed data on input of video_encode and output of resize openmax components. smsc95xx updates for Raspberry Pi. Enable building of lirc-rpi.
+  * Firmware files now taken from userland repo. Added hello_jpeg demo (thanks to Matt Ownby and Anthong Sale)
+  * Recreate opt/vc files from userland tree
+  * Rebuild with Simon's dmaer module and iscsi support
+  * Add missed files
+  * Increase commandline length to 1024
+  * Rebuild with sdcard retry mechanism from derolf. Add ratelimit to usbnet kevent may have been dropped messages.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Mon, 17 Dec 2012 12:11:11 +0100
+
 raspberrypi-support (3.2.27+git2012.09.05-2) pulse; urgency=low
 
   * Rebuild.
